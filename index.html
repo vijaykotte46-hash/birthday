@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Happy Birthday ❤️</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      background: #fff0f5;
+    }
+
+    /* COMMON */
+
+    .scene {
+      position: fixed;
+      inset: 0;
+
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      opacity: 0;
+      visibility: hidden;
+    }
+
+
+    /* =========================
+       HEART
+    ========================= */
+
+    .heart-scene {
+      background:
+        radial-gradient(
+          circle,
+          #ffd5e2,
+          #fff0f5 60%,
+          #ffe5ee
+        );
+
+      animation: heartScene 20s linear forwards;
+    }
+
+    .big-heart {
+      font-family: Arial, sans-serif;
+
+      font-size: clamp(100px, 18vw, 180px);
+
+      color: #ff477e;
+
+      text-shadow:
+        0 0 12px #ff8eae,
+        0 0 35px #ff8eae,
+        0 0 70px #ffc4d4;
+
+      animation: heartbeat 1.2s infinite;
+    }
+
+    .heart-caption {
+      position: absolute;
+
+      margin-top: 270px;
+
+      color: #8b3156;
+
+      font-size: clamp(18px, 4vw, 26px);
+
+      opacity: 0;
+
+      animation: fadeIn 1s 1.2s forwards;
+    }
+
+
+    /* =========================
+       HAPPY BIRTHDAY
+    ========================= */
+
+    .birthday-scene {
+      background: #f48bad;
+
+      animation: birthdayScene 20s linear 4s forwards;
+    }
+
+    .birthday-content {
+      text-align: center;
+    }
+
+    .birthday-title {
+      color: white;
+
+      font-size: clamp(48px, 11vw, 105px);
+
+      font-weight: bold;
+
+      opacity: 0;
+
+      transform: scale(0.3);
+
+      animation:
+        birthdayAppear 1.3s 4.3s forwards;
+    }
+
+    .small-hearts {
+      margin-top: 25px;
+
+      color: white;
+
+      font-size: 30px;
+
+      letter-spacing: 12px;
+
+      opacity: 0;
+
+      animation:
+        fadeIn 1s 5.2s forwards;
+    }
+
+
+    /* =========================
+       TEDDY
+    ========================= */
+
+    .teddy-scene {
+      background: #fff;
+
+      animation:
+        teddyScene 20s linear 8s forwards;
+    }
+
+    .teddy-area {
+      position: relative;
+
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+    }
+
+    .teddy-image {
+      width: 100vw;
+      height: 100vh;
+
+      object-fit: contain;
+
+      display: block;
+
+      opacity: 0;
+
+      transform: scale(0.5);
+
+      filter:
+        drop-shadow(
+          0 15px 25px rgba(0, 0, 0, 0.25)
+        );
+
+      animation:
+        teddyAppear 1.5s 8.7s forwards,
+        teddyFloat 3s 10.5s ease-in-out infinite;
+    }
+
+    .teddy-quote {
+      position: absolute;
+
+      left: 50%;
+      top: 78%;
+
+      transform: translate(-50%, -50%);
+
+      width: min(80vw, 500px);
+
+      padding: 15px;
+
+      color: white;
+
+      font-size: clamp(16px, 3.5vw, 23px);
+
+      line-height: 1.4;
+
+      text-align: center;
+
+      font-weight: bold;
+
+      text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.9),
+        0 0 10px rgba(0, 0, 0, 0.7);
+
+      opacity: 0;
+
+      animation:
+        quoteAppear 1.2s 10s forwards;
+    }
+
+
+    /* =========================
+       FRIEND PHOTO
+    ========================= */
+
+    .final-scene {
+      background:
+        radial-gradient(
+          circle,
+          #fffafd,
+          #ffeef4
+        );
+
+      animation:
+        finalScene 20s linear 15s forwards;
+    }
+
+    .final-card {
+      width: min(90%, 440px);
+
+      padding: 28px;
+
+      text-align: center;
+
+      background: white;
+
+      border-radius: 30px;
+
+      box-shadow:
+        0 15px 45px rgba(180, 50, 100, 0.2);
+
+      opacity: 0;
+
+      transform: scale(0.7);
+
+      animation:
+        cardAppear 1.2s 15.5s forwards;
+    }
+
+    .final-card h1 {
+      color: #d6336c;
+
+      font-size: 38px;
+
+      margin-bottom: 20px;
+    }
+
+    .photo {
+      display: block;
+
+      width: 270px;
+      height: 330px;
+
+      max-width: 100%;
+
+      object-fit: cover;
+
+      margin: auto;
+
+      border-radius: 22px;
+
+      border: 5px solid white;
+
+      box-shadow:
+        0 8px 25px rgba(160, 40, 80, 0.2);
+    }
+
+    .wish {
+      margin-top: 20px;
+
+      color: #7d3150;
+
+      font-size: 18px;
+
+      line-height: 1.6;
+    }
+
+    .final-hearts {
+      margin-top: 15px;
+
+      color: #ef5b86;
+
+      font-size: 25px;
+    }
+
+
+    /* =========================
+       ANIMATIONS
+    ========================= */
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes heartScene {
+      0%, 18% {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      22%, 100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes birthdayScene {
+      0%, 5% {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      7%, 27% {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      31%, 100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes birthdayAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes teddyScene {
+      0%, 18% {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      20%, 54% {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      58%, 100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes teddyAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes teddyFloat {
+      0%, 100% {
+        transform: scale(1) translateY(0);
+      }
+
+      50% {
+        transform: scale(1.02) translateY(-8px);
+      }
+    }
+
+    @keyframes quoteAppear {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes finalScene {
+      0%, 72% {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      75%, 100% {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      .heart-caption {
+        margin-top: 220px;
+      }
+
+      .teddy-quote {
+        top: 82%;
+
+        width: 88%;
+
+        font-size: 15px;
+      }
+
+      .photo {
+        width: 230px;
+        height: 285px;
+      }
+
+      .final-card h1 {
+        font-size: 30px;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- 1. HEART -->
+
+  <section class="scene heart-scene">
+
+    <div class="big-heart">
+      ♥
+    </div>
+
+    <div class=" BIG heart-caption">
+      
+    </div>
+
+  </section>
+
+
+  <!-- 2. HAPPY BIRTHDAY -->
+
+  <section class="scene birthday-scene">
+
+    <div class="birthday-content">
+
+      <div class="birthday-title">
+        Happy Birthday AMRUTHA
+      </div>
+
+      <div class="small-hearts">
+        ♥ ♥ ♥
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 3. TEDDY -->
+
+  <section class="scene teddy-scene">
+
+    <div class="teddy-area">
+
+      <img
+        class="teddy-image"
+        src="./teddy.jpeg"
+        alt="Black and White Teddy Bear"
+      >
+
+      <div class="teddy-quote">
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 4. FRIEND PHOTO -->
+
+  <section class="scene final-scene">
+
+    <div class="final-card">
+
+      <h1>
+        Happy Birthday AMRUTHA❤️
+      </h1>
+
+      <img
+        class="photo"
+        src="./friend.jpg"
+        alt="Birthday Photo"
+      >
+
+      <p class="wish">
+        Wishing you lots of happiness,<br>
+        beautiful memories,<br>
+        and endless smiles. ❤️
+      </p>
+
+      <div class="final-hearts">
+        ♥ ♥ ♥
+      </div>
+
+    </div>
+
+  </section>
+
+
+</body>
+</html>
